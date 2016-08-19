@@ -10,7 +10,7 @@ import weather.service.dto.geocoding.GeocodingResult;
 import weather.service.resttemplate.RestApiService;
 
 @Service
-@PropertySource("api.properties")
+@PropertySource("classpath:api.properties")
 public class GeocodingServiceImpl extends RestApiService<GeocodingResponse>
         implements GeocodingService {
     private String name;

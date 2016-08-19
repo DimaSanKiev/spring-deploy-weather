@@ -13,8 +13,14 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: 'war'
 
 jar {
+    baseName = 'weather'
+    version = '0.0.1-SNAPSHOT'
+}
+
+war {
     baseName = 'weather'
     version = '0.0.1-SNAPSHOT'
 }
@@ -25,10 +31,10 @@ repositories {
 
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-security'
-    compile('org.springframework.boot:spring-boot-starter-thymeleaf') {
-        exclude module: 'spring-boot-starter-tomcat'
-    }
-    compile 'org.springframework.boot:spring-boot-starter-jetty'
+    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
     compile 'org.springframework:spring-orm:4.2.4.RELEASE'
     compile 'org.springframework.data:spring-data-jpa:1.9.2.RELEASE'
     compile 'org.hibernate:hibernate-core:5.0.6.Final'

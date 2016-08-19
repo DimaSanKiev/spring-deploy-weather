@@ -60,7 +60,7 @@ public class WeatherServiceTest {
     }
 
     @Configuration
-    @PropertySource("api.properties")
+    @PropertySource("classpath:api.properties")
     public static class TestConfig {
         @Autowired
         private Environment env;

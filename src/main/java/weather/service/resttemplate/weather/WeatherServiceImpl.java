@@ -10,7 +10,7 @@ import weather.service.dto.weather.Weather;
 import weather.service.resttemplate.RestApiService;
 
 @Service
-@PropertySource("api.properties")
+@PropertySource("classpath:api.properties")
 public class WeatherServiceImpl extends RestApiService<Weather> implements WeatherService {
 
     private String name;

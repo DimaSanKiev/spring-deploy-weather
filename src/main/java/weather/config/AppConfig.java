@@ -22,7 +22,7 @@ import java.time.Instant;
 import java.util.Arrays;
 
 @Configuration
-@PropertySource("api.properties")
+@PropertySource("classpath:api.properties")
 public class AppConfig extends WebMvcConfigurerAdapter {
     @Value("${api.timeout}")
     private int timeout;
