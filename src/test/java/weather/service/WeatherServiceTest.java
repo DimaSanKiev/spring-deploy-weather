@@ -33,7 +33,7 @@ public class WeatherServiceTest {
     private Weather weather;
 
     private static final double ERROR_GEO = 0.0000001;
-    private static final double ERROR_TIME = 50000;
+    private static final double ERROR_TIME = 500000;
 
     @Before
     public void setup() {

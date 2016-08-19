@@ -4,8 +4,10 @@ import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -34,6 +36,7 @@ public class DataConfig {
     }
 
     @Bean
+    @Profile("dev")
     public DataSource dataSource() {
         BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName(env.getProperty("weather.db.driver"));
@@ -41,6 +44,12 @@ public class DataConfig {
         ds.setUsername(env.getProperty("weather.db.username"));
         ds.setPassword(env.getProperty("weather.db.password"));
         return ds;
+    }
+
+    @Bean(name = "dataSource")
+    @Profile("prod")
+    public DataSource jndiDataSource() {
+        return new JndiDataSourceLookup().getDataSource(env.getProperty("weather.jndi"));
     }
 
     private Properties getHibernateProperties() {
