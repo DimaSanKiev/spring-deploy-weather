@@ -3,11 +3,11 @@ package weather.web.controller;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;
-
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 public class WeatherControllerTest {
     private MockMvc mockMvc;
@@ -22,12 +22,12 @@ public class WeatherControllerTest {
     @Test
     public void home_ShouldRenderDetailView() throws Exception {
         mockMvc.perform(get("/"))
-            .andExpect(view().name("weather/detail"));
+                .andExpect(view().name("weather/detail"));
     }
 
     @Test
     public void search_ShouldRedirectWithPathParam() throws Exception {
-        mockMvc.perform(get("/search").param("q","60657"))
-            .andExpect(redirectedUrl("/search/60657"));
+        mockMvc.perform(get("/search").param("q", "60657"))
+                .andExpect(redirectedUrl("/search/60657"));
     }
 }

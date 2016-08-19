@@ -1,9 +1,5 @@
 package weather.service;
 
-import weather.config.AppConfig;
-import weather.service.dto.geocoding.Location;
-import weather.service.dto.weather.Weather;
-import weather.service.resttemplate.weather.WeatherServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +11,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
+import weather.config.AppConfig;
+import weather.service.dto.geocoding.Location;
+import weather.service.dto.weather.Weather;
+import weather.service.resttemplate.weather.WeatherServiceImpl;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -33,30 +33,30 @@ public class WeatherServiceTest {
     private Weather weather;
 
     private static final double ERROR_GEO = 0.0000001;
-    private static final double ERROR_TIME = 5000;
+    private static final double ERROR_TIME = 50000;
 
     @Before
     public void setup() {
-        loc = new Location(41.9403795,-87.65318049999999);
+        loc = new Location(41.9403795, -87.65318049999999);
         weather = service.findByLocation(loc);
     }
 
     @Test
     public void findByLocation_ShouldReturnSameCoords() throws Exception {
-        assertThat(weather.getLatitude(),closeTo(loc.getLatitude(),ERROR_GEO));
-        assertThat(weather.getLongitude(),closeTo(loc.getLongitude(),ERROR_GEO));
+        assertThat(weather.getLatitude(), closeTo(loc.getLatitude(), ERROR_GEO));
+        assertThat(weather.getLongitude(), closeTo(loc.getLongitude(), ERROR_GEO));
     }
 
     @Test
     public void findByLocation_ShouldReturn8DaysForecastData() throws Exception {
-        assertThat(weather.getDaily().getData(),hasSize(8));
+        assertThat(weather.getDaily().getData(), hasSize(8));
     }
 
     @Test
     public void findByLocation_ShouldReturnCurrentConditions() throws Exception {
         Instant now = Instant.now();
-        double duration = Duration.between(now,weather.getCurrently().getTime()).toMillis();
-        assertThat(duration,closeTo(0,ERROR_TIME));
+        double duration = Duration.between(now, weather.getCurrently().getTime()).toMillis();
+        assertThat(duration, closeTo(0, ERROR_TIME));
     }
 
     @Configuration
@@ -73,9 +73,9 @@ public class WeatherServiceTest {
         @Bean
         public WeatherService weatherService() {
             WeatherService service = new WeatherServiceImpl(
-                env.getProperty("weather.api.name"),
-                env.getProperty("weather.api.key"),
-                env.getProperty("weather.api.host")
+                    env.getProperty("weather.api.name"),
+                    env.getProperty("weather.api.key"),
+                    env.getProperty("weather.api.host")
             );
             return service;
         }
