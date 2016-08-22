@@ -1,4 +1,9 @@
 .idea/
-.gradle
+.gradle/
 build/
+classes/
+gradle/
 src/main/resources/api.properties
+gradlew
+gradlew.bat
+settings.gradle
